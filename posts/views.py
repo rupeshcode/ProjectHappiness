@@ -43,5 +43,11 @@ class ResponseDetail(generics.RetrieveUpdateDestroyAPIView):
         return Response.objects.filter(isModerated=True)
 
 
+class StoryResponseList(generics.ListCreateAPIView):
+    serializer_class = ResponseSerializer
+
+    def get_queryset(self):
+        storyId = self.kwargs['story']
+        return Response.objects.filter(storyId=storyId, isModerated=True)
 
 
