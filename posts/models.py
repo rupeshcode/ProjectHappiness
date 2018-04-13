@@ -50,7 +50,7 @@ class Story(models.Model):
 
 
 class Response(models.Model):
-    story = models.ForeignKey(Story, on_delete=models.CASCADE)
+    storyId = models.ForeignKey(Story, on_delete=models.CASCADE)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     response = models.CharField(max_length=1000)
     # date = models.DateTimeField(auto_now_add=True)
