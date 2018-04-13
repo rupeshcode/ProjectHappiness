@@ -16,11 +16,15 @@ class StoryList(generics.ListCreateAPIView):
 
     def get_queryset(self):
 #        tech = self.kwargs['tech']
-        return Story.objects.filter(approved=True)
+        return Story.objects.filter(isModerated=True)
 
 class StroyDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Story.objects.all()
+
     serializer_class = StorySerializer
+
+    def get_queryset(self):
+        #        tech = self.kwargs['tech']
+        return Story.objects.filter(isModerated=True)
 
 
 class ResponseList(generics.ListCreateAPIView):
@@ -28,11 +32,15 @@ class ResponseList(generics.ListCreateAPIView):
 
     def get_queryset(self):
 #        tech = self.kwargs['tech']
-        return Response.objects.filter(approved=True)
+        return Response.objects.filter(isModerated=True)
 
 class ResponseDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Response.objects.all()
+
     serializer_class = ResponseSerializer
+
+    def get_queryset(self):
+        #        tech = self.kwargs['tech']
+        return Response.objects.filter(isModerated=True)
 
 
 
