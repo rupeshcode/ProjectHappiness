@@ -1,0 +1,59 @@
+{% extends 'posts/base.html' %}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{% block title %}Ask Lnmiit{% endblock %}
+{% block static_files %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://bootswatch.com/cosmo/bootstrap.min.css">
+
+            <div style="padding-top:50px;"> </div>
+            <div class="col-md-offset-1 col-lg-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="media">
+                          <div class="pull-left">
+                              <a href="#">
+                                  <img class="media-object img-circle" src="{{ user.profile.image.url }}" width="35px" height="35px" style="margin-left:3px; margin-right:-5px;">
+                              </a>
+                          </div>
+                          <div class="media-body">
+
+                          <form method="POST" class="post-form">{% csrf_token %}
+                              {% bootstrap_form form %}
+
+
+
+
+
+
+
+                          </div>
+                      </div>
+                      <hr>
+                      <div class="pull-right post-button-submit">
+                        {% buttons %}
+
+                          <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "star" %} Submit
+                          </button>
+                        {% endbuttons %}
+</form>
+                      </div>
+
+                  </div>
+              </div>
+                <hr>
+              
+            </div>
+            {% endblock %}

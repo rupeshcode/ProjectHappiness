@@ -1,0 +1,85 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Ask Lnmiit{% endblock %}
+{% block static_files %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://bootswatch.com/cosmo/bootstrap.min.css">
+
+            <div style="padding-top:50px;"> </div>
+
+            <div class="col-md-offset-1 col-lg-offset-1 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+
+
+                      <div class="post-content">
+
+                              <div class="panel-body ">
+                                  <div class="pull-left new-panel">
+                                      <a href="#">
+                                          <img class="media-object img-circle" src="{{ user.profile.image.url }}" width="35px" height="35px" style="margin-right:8px; margin-top:-5px;">
+                                      </a>
+                                  </div>
+                                  <h4><a href="{% url 'posts:add_question' %}" style="text-decoration:none; color:#4c4c4c; letter-spacing: 5px;"><strong>Ask Your Question ?
+
+
+                                  </strong></a></h4>
+
+
+                              </div>
+
+                      </div>
+
+
+
+
+
+                      <hr>
+                      <div class="pull-right post-button-submit">
+
+
+                      </div>
+
+                  </div>
+              </div>
+                <hr>
+
+                {% for question in questions %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="pull-left">
+                            <a href="#">
+                                <img class="media-object img-circle" src="{{ question.user.profile.image.url }}" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
+                            </a>
+                        </div>
+                        <h4><a href="{% if user.username == question.user.username %}{% url 'posts:profile' %}{% else %}{% url 'posts:user_profile' username=question.user.username %}{% endif %}" style="text-decoration:none; "><strong>{{ question.user.username }}
+
+                        </strong></a> – <small><small><a  style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ question.published_date }}</i></a></small></small></h4>
+
+                        <hr>
+                        <div class="post-content">
+
+                            <h1 style="font-size:30px;"><p><a href="{% url 'posts:question_detail' pk=question.pk %}" style="text-decoration:none; color:black;"><b>{{ question.text }}</b></a></h1><small style="color:grey;"><small>{{ question.details }}</small></small></p>
+                        </div>
+                        <hr>
+                        <div>
+
+                            <div class="pull-left post-answer">
+
+                            </div>
+                            <br>
+                        </div>
+
+
+                    </div>
+                </div>
+                {% endfor %}
+              
+            </div>
+            {% endblock %}

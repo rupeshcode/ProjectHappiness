@@ -1,0 +1,141 @@
+{% extends 'posts/base.html' %}{% block title %}Profile{% endblock %}
+{% block static_files %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}" />
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://bootswatch.com/cosmo/bootstrap.min.css">
+
+<div style="padding-top:50px;"> </div>
+        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <div align="center">
+                            <img class="thumbnail img-responsive" src="{{ users.profile.image.url }}" width="300px" height="300px">
+                        </div>
+                        <div class="media-body">
+                            <hr>
+                            <h3><strong>Bio</strong></h3>
+                            <p>{{ users.profile.bio }}</p>
+                            <hr>
+
+                            <h3><strong>Gender</strong></h3>
+                            <p>{{ users.profile.gender }}</p>
+                            <hr>
+                            <h3><strong>Birthday</strong></h3>
+                            <p>{{ users.profile.dob.date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body test">
+                    <span>
+                        <h1 class="panel-title pull-left" style="font-size:30px;">{{ users.username }} <small>{{ users.email }}</small> </h1>
+                        {# if user.is_authenticated #}
+
+                        {# endif #}
+                    </span>
+                    <br><br>
+
+
+                    <h1 class="panel-title pull-left" style="font-size:20px;">{{ users.first_name }} {{ users.last_name }}</h1>
+                    <br>
+
+
+                </div>
+            </div>
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#home">My Questions</a></li>
+              <li><a data-toggle="tab" href="#menu1">My Answers</a></li>
+
+            </ul>
+            <div class="tab-content">
+              <div id="home" class="tab-pane fade in active">
+
+
+
+            {% for question in users.question_set.all %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pull-left">
+                        <a href="#">
+                            <img class="media-object img-circle" src="{{ question.user.profile.image.url }}" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
+                        </a>
+                    </div>
+                    <h4><a href="{% if user.username == question.user.username %}{% url 'posts:profile' %}{% else %}{% url 'posts:user_profile' username=question.user.username %}{% endif %}" style="text-decoration:none;"><strong>{{ question.user.username }}</strong></a> – <small><small><a  style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ question.published_date }}</i></a></small></small></h4>
+
+                    <hr>
+                    <div class="post-content">
+
+                        <h1 style="font-size:30px;"><p><a href="{% url 'posts:question_detail' pk=question.pk %}">{{ question.text }}</a></h1><small style="color:grey;"><small>{{ question.details }}</small></small></p>
+                    </div>
+                    <hr>
+                    <div>
+
+                        <div class="pull-left post-answer">
+
+                        </div>
+                        <br>
+                    </div>
+
+
+                </div>
+            </div>
+            {% endfor %}
+
+          </div>
+          <div id="menu1" class="tab-pane fade">
+
+
+
+            {% for answer in users.answer_set.all %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pull-left">
+                        <a href="#">
+                            <img class="media-object img-circle" src="{{ answer.question.user.profile.image.url }}" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
+                        </a>
+                    </div>
+                    <h4><a href="{% if user.username == answer.question.user.username %}{% url 'posts:profile' %}{% else %}{% url 'posts:user_profile' username=answer.question.user.username %}{% endif %}" style="text-decoration:none;"><strong>{{ answer.question.user.username }}</strong></a> – <small><small><a  style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ answer.question.published_date }}</i></a></small></small></h4>
+
+                    <hr>
+                    <div class="post-content">
+
+                        <h1 style="font-size:30px;"><p><a href="{% url 'posts:question_detail' pk=answer.question.pk %}">{{ answer.question.text }}</a></h1><small style="color:grey;"><small>{{ answer.question.details }}</small></small></p>
+                    </div>
+                    <hr>
+                    <div>
+
+                        <div class="pull-left post-answer">
+
+                        </div>
+                        <br>
+                    </div>
+
+
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+
+            
+
+            </div>
+
+        </div>
+
+
+
+
+        </div>
+
+{% endblock %}
