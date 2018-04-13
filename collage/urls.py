@@ -7,10 +7,6 @@ from django.views.static import serve
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('posts.urls')),
-    #url(r'^posts/', include('posts.urls' , namespace="posts")),
-    #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'next_page': '/'}),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

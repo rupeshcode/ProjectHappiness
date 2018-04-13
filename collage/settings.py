@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.pythonanywhere.com', 'localhost', '127.0.0.1', '0.0.0.0']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,8 +36,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
-    #'crispy_forms',
-    #'bootstrapform',
+    # 'crispy_forms',
+    # 'bootstrapform',
     'bootstrap3',
     'allauth.socialaccount',
     'bootstrapform',
@@ -49,9 +47,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
-#CRISPY_TEMPLATE_PACK = 'bootstrap3'
+# CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,12 +64,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'collage.urls'
 
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'posts','templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'posts', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +83,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'collage.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -128,8 +126,6 @@ DEFAULT_FROM_EMAIL = 'you@domain.com'
 
 SITE_ID = 1
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -154,17 +150,27 @@ DATE_INPUT_FORMATS = ('%d-%m-%Y')
 
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 CKEDITOR_UPLOAD_PATH = "uploads/"
-#ckeditor uses pillow for image backend
+# ckeditor uses pillow for image backend
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_CONFIGS = {
     'default': {
     },
 }
-#saw it some where
+# saw it some where
 CKEDITOR_ALLOW_NONIMAGE_FILES = True
+CORS_ORIGIN_ALLOW_ALL = True
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DATETIME_FORMAT': "%Y-%m-%d",
+    'DATETIME_INPUT_FORMATS': ['%Y-%m-%d'],
+}
+
+# "%Y-%m-%dT%H:%M:%S"
