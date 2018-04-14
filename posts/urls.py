@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^api/story/(?P<pk>[0-9]+)$', StroyDetail.as_view()),
     url(r'^api/response/$', ResponseList.as_view()),
     url(r'^api/response/(?P<pk>[0-9]+)$', ResponseDetail.as_view()),
-    url(r'^api/responses/(?P<storyId>.+)/$', StoryResponseList.as_view()),
+    url(r'^api/responses/(?P<storyId>[0-9]+)/$', StoryResponseList.as_view()),
 
 ]
