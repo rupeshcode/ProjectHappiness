@@ -31,8 +31,6 @@ class Story(models.Model):
     def __str__(self):
         return str(self.id)
 
-
-
     def _get_unique_slug(self):
         slug = slugify(self.title)
         unique_slug = slug
@@ -65,3 +63,40 @@ class Response(models.Model):
     def save(self, *args, **kwargs):
         self.created_date = timezone.now()
         super(Response, self).save(*args, **kwargs)
+
+
+class Blog(models.Model):
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # text = body
+    body = models.TextField()
+    title = models.TextField(max_length=100)
+    slug = models.SlugField(max_length=100, null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    published_date = models.DateTimeField(blank=True, null=True,)
+
+    #    class Meta:
+    #        db_table = "questions"
+    #        verbose_name = ("Question")
+    #        verbose_name_plural = ("Questions")
+    #        ordering = ("created_date")
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return str(self.id)
+
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Blog.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        self.created_date = timezone.now
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super(Blog, self).save(*args, **kwargs)
