@@ -46,7 +46,7 @@ class StoryResponseList(generics.ListCreateAPIView):
     serializer_class = ResponseSerializer
 
     def get_queryset(self):
-        storyId = self.kwargs['story']
+        storyId = self.kwargs['storyId']
         return Response.objects.filter(storyId=storyId, isModerated=True)
 
 
