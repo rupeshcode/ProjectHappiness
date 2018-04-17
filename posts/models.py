@@ -41,7 +41,7 @@ class Story(models.Model):
         return unique_slug
 
     def save(self, *args, **kwargs):
-        self.created_date = timezone.now
+        self.created_date = timezone.now()
         if not self.slug:
             self.slug = self._get_unique_slug()
         super(Story, self).save(*args, **kwargs)
