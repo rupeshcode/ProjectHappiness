@@ -1,10 +1,11 @@
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import StoryList, StoryDetail, ResponseList, ResponseDetail, StoryResponseList, BlogDetail, BlogList
+from .views import StoryList, StoryDetail, ResponseList, ResponseDetail, StoryResponseList, BlogDetail, BlogList, Moderator
 #from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
+    url(r'^moderator/$', Moderator.as_view()),
     url(r'^api/story/$', StoryList.as_view()),
     url(r'^api/story/(?P<pk>[0-9]+)$', StoryDetail.as_view()),
     url(r'^api/blogs/$', BlogList.as_view()),
