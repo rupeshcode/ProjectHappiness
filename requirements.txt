@@ -10,7 +10,7 @@ django-cors-headers==2.2.0
 django-js-asset==0.1.1
 djangorestframework==3.5.3
 idna==2.6
-Jinja2==2.9.6
+Jinja2==2.11.3
 MarkupSafe==1.0
 oauthlib==2.0.2
 olefile==0.44
